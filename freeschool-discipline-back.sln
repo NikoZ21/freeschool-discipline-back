@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36202.13 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "freeschool-discipline-back", "freeschool-discipline-back.csproj", "{38232132-28F3-4959-8E6F-A85DFF250EFD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38232132-28F3-4959-8E6F-A85DFF250EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38232132-28F3-4959-8E6F-A85DFF250EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38232132-28F3-4959-8E6F-A85DFF250EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38232132-28F3-4959-8E6F-A85DFF250EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A52B2A2-66C9-4684-9ED8-695A27D9CED2}
+	EndGlobalSection
+EndGlobal
