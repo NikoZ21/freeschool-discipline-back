@@ -18,7 +18,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1"));
 }
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "Hello Users this is Discipline Backend!");
 
 app.MapControllers();
 
