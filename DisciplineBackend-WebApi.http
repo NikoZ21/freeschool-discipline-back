@@ -1,0 +1,6 @@
+@DisciplineBackend_WebApi_HostAddress = http://localhost:5259
+
+GET {{DisciplineBackend_WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
