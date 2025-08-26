@@ -14,7 +14,7 @@ namespace DisciplineBackend_WebApi.Controllers
     public class AuthController : ControllerBase
     {
 
-        public User user = new();
+        private readonly User user = new() { Username = "peter", PsswordHash = "AQAAAAIAAYagAAAAEJMFMr3DdNRNE/BQT30a5nWXyRXz5024sonbWD7tYMi+da+9Xw6HRybe49UoVEidnA==" };
 
         [HttpPost("register")]
         public IActionResult Register(UserDto request)
@@ -25,6 +25,25 @@ namespace DisciplineBackend_WebApi.Controllers
             user.PsswordHash = hashedPassword;
 
             return Ok(user);
+        }
+
+        [HttpPost("login")]
+        public IActionResult Login(UserDto request)
+        {
+            if (user.Username != request.Username)
+            {
+                return BadRequest("User not found.");
+            }
+
+            var result = new PasswordHasher<User>().VerifyHashedPassword(user, user.PsswordHash, request.Password);
+            if (result == PasswordVerificationResult.Failed)
+            {
+                return BadRequest("Wrong password.");
+            }
+
+            string token = "success"; // Placeholder for token generation logic
+
+            return Ok(token);
         }
     }
 }
