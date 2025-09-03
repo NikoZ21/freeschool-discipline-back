@@ -44,6 +44,18 @@ namespace DisciplineBackend_WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken(RefreshTokenRequestDto request)
+        {
+            var result = await authService.RefreshTokenAsync(request);
+            if (result is null || result.RefreshToken is null || result.AccessToken is null)
+            {
+                return Unauthorized("Invalid refresh token");
+            }
+
+            return Ok(result);
+        }
+
         [Authorize]
         [HttpGet]
         public IActionResult AuthenicatedEndpointOnly()

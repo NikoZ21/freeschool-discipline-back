@@ -7,5 +7,6 @@ namespace DisciplineBackend_WebApi.Services
     {
         Task<User?> RegisterAsync(UserDto request);
         Task<TokenReponseDto?> LoginAsync(UserDto request);
+        Task<TokenReponseDto?> RefreshTokenAsync(RefreshTokenRequestDto request);
     }
 }
