@@ -35,13 +35,13 @@ namespace DisciplineBackend_WebApi.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserDto request)
         {
-            var token = await authService.LoginAsync(request);
-            if (token is null)
+            var result = await authService.LoginAsync(request);
+            if (result is null)
             {
                 return BadRequest("Invalid username or password");
             }
 
-            return Ok(token);
+            return Ok(result);
         }
 
         [Authorize]

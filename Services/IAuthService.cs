@@ -6,6 +6,6 @@ namespace DisciplineBackend_WebApi.Services
     public interface IAuthService
     {
         Task<User?> RegisterAsync(UserDto request);
-        Task<string?> LoginAsync(UserDto request);
+        Task<TokenReponseDto?> LoginAsync(UserDto request);
     }
 }

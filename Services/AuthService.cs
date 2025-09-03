@@ -6,13 +6,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace DisciplineBackend_WebApi.Services
 {
     public class AuthService(AppDbContext context, IConfiguration configuration) : IAuthService
     {
-        public async Task<string?> LoginAsync(UserDto request)
+        public async Task<TokenReponseDto?> LoginAsync(UserDto request)
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
             if (user is null)
@@ -25,7 +26,13 @@ namespace DisciplineBackend_WebApi.Services
                 return null;
             }
 
-            return CreateToken(user);
+            var response = new TokenReponseDto()
+            {
+                AccessToken = CreateToken(user),
+                RefreshToken = await GenerateRefreshTokenAsync(user)
+            };
+
+            return response;
         }
 
         private string CreateToken(User user)
@@ -44,6 +51,23 @@ namespace DisciplineBackend_WebApi.Services
             var tokenDescriptor = new JwtSecurityToken(issuer: configuration.GetValue<string>("AppSettings:Issuer"), audience: configuration.GetValue<string>("AppSettings:Audience"), claims: claims, expires: DateTime.UtcNow.AddDays(1), signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+        }
+
+        private string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
+        }
+
+        private async Task<string> GenerateRefreshTokenAsync(User user)
+        {
+            var refreshToken = GenerateRefreshToken();
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+            await context.SaveChangesAsync();
+            return refreshToken;
         }
 
         public async Task<User?> RegisterAsync(UserDto request)
